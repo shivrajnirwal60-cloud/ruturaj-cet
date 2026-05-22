@@ -1,0 +1,175 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Outfit:wght@300;400;500;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+.root{min-height:580px;display:flex;font-family:'Outfit',sans-serif;border-radius:16px;overflow:hidden}
+.left{flex:1;background:linear-gradient(135deg,#1a1040 0%,#2d1b69 50%,#11274a 100%);display:flex;flex-direction:column;justify-content:space-between;padding:2.5rem 2rem;position:relative;min-width:180px}
+.left::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 20%,rgba(138,99,255,0.25) 0%,transparent 60%),radial-gradient(ellipse at 80% 80%,rgba(56,189,248,0.15) 0%,transparent 60%)}
+.dots{position:absolute;inset:0;overflow:hidden}
+.dot{position:absolute;border-radius:50%;opacity:0.18}
+.logo-area{position:relative}
+.logo-icon{width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;margin-bottom:1rem}
+.logo-icon svg{width:22px;height:22px}
+.logo-name{font-family:'Playfair Display',serif;font-size:22px;color:#fff;line-height:1}
+.logo-tag{font-size:11px;color:rgba(255,255,255,0.45);letter-spacing:0.08em;margin-top:4px}
+.left-bottom{position:relative}
+.quote{font-size:13px;color:rgba(255,255,255,0.55);line-height:1.6;font-style:italic}
+.quote strong{color:rgba(255,255,255,0.85);font-style:normal;font-weight:500}
+.orbs{position:absolute;bottom:0;right:0;width:120px;height:120px}
+.orb1{position:absolute;width:80px;height:80px;border-radius:50%;background:rgba(138,99,255,0.3);bottom:10px;right:10px;filter:blur(20px)}
+.orb2{position:absolute;width:50px;height:50px;border-radius:50%;background:rgba(56,189,248,0.25);bottom:30px;right:30px;filter:blur(14px)}
+
+.right{flex:1.4;background:#0f0f1a;display:flex;align-items:center;justify-content:center;padding:2rem 1.5rem}
+.card{width:100%;max-width:340px}
+.card-head{margin-bottom:2rem}
+.card-head h2{font-family:'Playfair Display',serif;font-size:26px;color:#fff;margin-bottom:6px}
+.card-head p{font-size:13px;color:rgba(255,255,255,0.4);font-weight:300}
+
+.field{margin-bottom:1.1rem;position:relative}
+.field label{display:block;font-size:11px;font-weight:600;color:rgba(255,255,255,0.35);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px}
+.field-wrap{position:relative}
+.field-wrap .icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.2);font-size:16px;pointer-events:none;transition:color 0.2s}
+.field input{width:100%;height:46px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;color:#fff;font-size:14px;font-family:'Outfit',sans-serif;font-weight:400;padding:0 42px 0 42px;transition:border 0.2s,background 0.2s}
+.field input::placeholder{color:rgba(255,255,255,0.18)}
+.field input:focus{outline:none;border-color:rgba(138,99,255,0.7);background:rgba(138,99,255,0.06)}
+.field input:focus ~ .icon,.field-wrap:focus-within .icon{color:rgba(138,99,255,0.8)}
+.eye-btn{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(255,255,255,0.2);cursor:pointer;font-size:16px;padding:4px;transition:color 0.2s}
+.eye-btn:hover{color:rgba(255,255,255,0.5)}
+
+.forgot{text-align:right;margin:-4px 0 1.5rem;font-size:12px;color:rgba(138,99,255,0.7);cursor:pointer}
+.forgot:hover{color:#8a63ff}
+
+.btn-main{width:100%;height:46px;border:none;border-radius:12px;background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff;font-size:14px;font-weight:600;font-family:'Outfit',sans-serif;cursor:pointer;position:relative;overflow:hidden;transition:transform 0.15s,box-shadow 0.15s}
+.btn-main::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.12),transparent);pointer-events:none}
+.btn-main:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(124,58,237,0.4)}
+.btn-main:active{transform:scale(0.98)}
+
+.divline{display:flex;align-items:center;gap:10px;margin:1.5rem 0;color:rgba(255,255,255,0.15);font-size:11px}
+.divline::before,.divline::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.08)}
+
+.hint-box{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:10px 14px;font-size:12px;color:rgba(255,255,255,0.3);text-align:center}
+.hint-box code{color:rgba(138,99,255,0.8);background:rgba(138,99,255,0.1);padding:1px 7px;border-radius:5px;font-size:11px;font-family:monospace}
+
+.msg{font-size:12px;text-align:center;margin-top:10px;min-height:16px;font-weight:500}
+.msg.err{color:#f87171}
+.msg.ok{color:#34d399}
+
+.dash-view{display:none;text-align:center}
+.dash-view.visible{display:block}
+.avatar-big{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#4f46e5);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700;color:#fff;margin:0 auto 1.2rem;box-shadow:0 0 30px rgba(124,58,237,0.4)}
+.dash-title{font-family:'Playfair Display',serif;font-size:22px;color:#fff;margin-bottom:6px}
+.dash-sub{font-size:13px;color:rgba(255,255,255,0.35);margin-bottom:1.8rem}
+.stat-row{display:flex;gap:10px;margin-bottom:1.8rem}
+.stat{flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px;text-align:center}
+.stat-num{font-size:20px;font-weight:600;color:#fff}
+.stat-lbl{font-size:10px;color:rgba(255,255,255,0.3);margin-top:2px;text-transform:uppercase;letter-spacing:0.08em}
+.btn-out{width:100%;height:40px;background:none;border:1px solid rgba(255,255,255,0.12);border-radius:10px;color:rgba(255,255,255,0.45);font-size:13px;font-family:'Outfit',sans-serif;cursor:pointer;transition:background 0.15s,color 0.15s}
+.btn-out:hover{background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.7)}
+</style>
+
+<div class="root">
+  <div class="left">
+    <div class="orbs"><div class="orb1"></div><div class="orb2"></div></div>
+    <div class="logo-area">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 17.5h7M17.5 14v7"/>
+        </svg>
+      </div>
+      <div class="logo-name">Projectly</div>
+      <div class="logo-tag">PROJECT WORKSPACE</div>
+    </div>
+    <div class="left-bottom">
+      <div class="quote">"Great projects begin with<br><strong>a single sign-in.</strong>"</div>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="card">
+
+      <div id="loginView">
+        <div class="card-head">
+          <h2>Welcome back</h2>
+          <p>Sign in to access your workspace</p>
+        </div>
+
+        <div class="field">
+          <label>User ID</label>
+          <div class="field-wrap">
+            <i class="ti ti-user icon" aria-hidden="true"></i>
+            <input type="text" id="uid" placeholder="Enter your ID" autocomplete="username"/>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Password</label>
+          <div class="field-wrap">
+            <i class="ti ti-lock icon" aria-hidden="true"></i>
+            <input type="password" id="pwd" placeholder="Enter your password" autocomplete="current-password"/>
+            <button class="eye-btn" onclick="togglePwd()" type="button" id="eyeBtn" aria-label="Toggle password visibility">
+              <i class="ti ti-eye" id="eyeIcon" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="forgot">Forgot password?</div>
+
+        <button class="btn-main" onclick="doLogin()">Sign in →</button>
+        <p class="msg" id="msg"></p>
+
+        <div class="divline">demo credentials</div>
+        <div class="hint-box">ID <code>admin</code> · Password <code>1234</code></div>
+      </div>
+
+      <div class="dash-view" id="dashView">
+        <div class="avatar-big" id="avatarEl">AD</div>
+        <div class="dash-title" id="dashName">Welcome!</div>
+        <div class="dash-sub">You're signed into your workspace</div>
+        <div class="stat-row">
+          <div class="stat"><div class="stat-num">12</div><div class="stat-lbl">Projects</div></div>
+          <div class="stat"><div class="stat-num">5</div><div class="stat-lbl">Active</div></div>
+          <div class="stat"><div class="stat-num">3</div><div class="stat-lbl">Pending</div></div>
+        </div>
+        <button class="btn-out" onclick="doLogout()">Sign out</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+const USERS = {admin:"1234",user:"pass"};
+function doLogin(){
+  const id=document.getElementById('uid').value.trim();
+  const pw=document.getElementById('pwd').value;
+  const msg=document.getElementById('msg');
+  if(!id||!pw){setMsg('Please fill in both fields.','err');return;}
+  if(USERS[id]&&USERS[id]===pw){
+    msg.textContent='';
+    document.getElementById('loginView').style.display='none';
+    const d=document.getElementById('dashView');
+    d.classList.add('visible');
+    document.getElementById('avatarEl').textContent=id.slice(0,2).toUpperCase();
+    document.getElementById('dashName').textContent='Hey, '+id+'!';
+  } else {
+    setMsg('Invalid credentials. Please try again.','err');
+    document.getElementById('pwd').value='';
+    document.getElementById('pwd').focus();
+  }
+}
+function doLogout(){
+  document.getElementById('dashView').classList.remove('visible');
+  document.getElementById('loginView').style.display='';
+  document.getElementById('uid').value='';
+  document.getElementById('pwd').value='';
+  document.getElementById('msg').textContent='';
+}
+function setMsg(t,c){const e=document.getElementById('msg');e.textContent=t;e.className='msg '+c;}
+function togglePwd(){
+  const inp=document.getElementById('pwd');
+  const icon=document.getElementById('eyeIcon');
+  if(inp.type==='password'){inp.type='text';icon.className='ti ti-eye-off';}
+  else{inp.type='password';icon.className='ti ti-eye';}
+}
+document.getElementById('pwd').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+</script>
